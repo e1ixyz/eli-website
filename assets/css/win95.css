@@ -35,7 +35,7 @@ body {
     padding-bottom: 28px;
 }
 .bg-cloud{
-    background-image: url(bg.gif);
+    background-image: url(../img/bg.gif);
     color:#212529;
 }
 
@@ -116,7 +116,7 @@ Scrollbar (only chrome & safari)
     border-shadow: 1px 1px #000
 }
 ::-webkit-scrollbar-track{
-    background-image: url(background.bmp)
+    background-image: url(../img/background.bmp)
 }
 ::-webkit-scrollbar-thumb:vertical {
     border: 1px outset #fff;
