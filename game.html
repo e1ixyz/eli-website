@@ -7,6 +7,11 @@
     <meta name="theme-color" content="#333333" />
 
     <title>Game</title>
+
+    <audio id="myAudio" autoplay loop>
+      <source src="assets/audio/music2.mp3" type="audio/mp3" />
+  </audio>
+
     <style>
       #ascii-cam pre,
       body,
@@ -343,6 +348,11 @@ Say Cheese! (Screenshot to keep.)<br> Credits to Github user @Metroxe
           }
         });
       })();
+
+      function playMyAudio(){
+      document.getElementById("myAudio").play();
+      }
+      
     </script>
   </body>
 </html>
