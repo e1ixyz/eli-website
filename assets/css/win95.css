@@ -79,7 +79,35 @@ header .container {
   position: relative;
   z-index: 2;
 }
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(../img/bg.png);
+    background-repeat: repeat;
+    background-position: center;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #main-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.0s, visibility 1.0s;
+  }
+  
+  #main-content.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
 /*
+
 
 Scrollbar (only chrome & safari)
 
