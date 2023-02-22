@@ -116,3 +116,25 @@
     cursor: pointer;
     font-size: 14px;
     }
+    a:link {
+        color: limegreen;
+        text-decoration: none;
+      }
+      
+      /* visited link */
+      a:visited {
+        color: limegreen;
+        text-decoration: none;
+      }
+      
+      /* mouse over link */
+      a:hover {
+        color: limegreen;
+        text-decoration: none;
+      }
+      
+      /* selected link */
+      a:active {
+        color: limegreen;
+        text-decoration: none;
+      }
