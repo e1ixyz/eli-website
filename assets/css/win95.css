@@ -45,26 +45,23 @@ Link color
 
 */
 a:link {
-  color: rgb(104, 220, 83);
-  text-decoration: none;
+  color: blue;
 }
 
 /* visited link */
 a:visited {
-  color: rgb(48, 201, 21);
+  color: blue;
   text-decoration: none;
 }
 
 /* mouse over link */
 a:hover {
-  color: rgb(0, 238, 255);
-  text-decoration: none;
+  color: blue;
 }
 
 /* selected link */
 a:active {
   color: blue;
-  text-decoration: none;
 }
 
 /*
