@@ -44,8 +44,27 @@ body {
 Link color
 
 */
-a {
-    color:#2d49eb;
+a:link {
+  color: rgb(104, 220, 83);
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color: rgb(48, 201, 21);
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(0, 238, 255);
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+  text-decoration: none;
 }
 
 /*
