@@ -417,6 +417,7 @@ FOOTER
     box-shadow: 1px 1px #000;
     margin-bottom: 2px;
     font-size: 14px;
+    color: blue;
 }
 .taskbar .time {
     color:#212529;
