@@ -22,6 +22,7 @@
 html {
   position: relative;
   min-height: 100%;
+  
 }
 /*
 
@@ -33,6 +34,7 @@ body {
     background: rgb(28, 11, 180);
     color: white;
     padding-bottom: 28px;
+    font-family: FSEX300;
 }
 .bg-cloud{
     background-image: url(../img/bg.gif);
