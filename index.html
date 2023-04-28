@@ -18,6 +18,12 @@
         <audio id="myAudio" autoplay loop>
             <source src="assets/audio/music3.mp3" type="audio/mp3" />
         </audio>
+
+        <script>
+            var bgImages = ["bg1.gif", "bg2.gif", "bg3.gif"];
+            var randomBg = bgImages[Math.floor(Math.random() * bgImages.length)];
+            document.body.style.backgroundImage = "url('assets/img/" + randomBg + "')";
+        </script>
         
     </head>
     <div id="main-content">
