@@ -1,7 +1,7 @@
 // Join Alert
 var alerted = localStorage.getItem('alerted') || '';
 if (alerted != 'yes') {
- alert("Welcome! For the best user experience, please enable audio in your browser settings.");
+ alert("Welcome! For the optimal user experience, please enable audio in your browser settings. =)");
  localStorage.setItem('alerted','yes');
   }
 
