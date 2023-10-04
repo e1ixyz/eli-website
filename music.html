@@ -12,14 +12,8 @@
    <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
 
    <iframe src="assets/audio/silence.mp3" allow="autoplay" id="audio" style="display: none;"></iframe>
-   <audio id="song1" loop>
+   <audio id="myAudio" loop>
        <source src="assets/audio/sad.mp3" type="audio/mp3" />
-   </audio>
-   <audio id="song2" loop>
-      <source src="assets/audio/brain_fried(og demo).mp3" type="audio/mp3" />
-  </audio>
-   <audio id="song3" loop>
-      <source src="assets/audio/bot01.mp3" type="audio/mp3" />
    </audio>
 
    <style>
@@ -36,9 +30,7 @@
       <div>
          <div class="terminal"><br>
             <font color="limegreen">>>> Music</font><br><br>
-            <button type="button" class="button" onClick="song1()">[sad.mp3]</button><br>
-            <button type="button" class="button" onClick="song2()">[brain_fried(og demo).mp3]</button><br>
-            <button type="button" class="button" onClick="song3()">[bot01.mp3]</button><br>
+            <button type="button" class="button" onClick="playMyAudio()">[sad.mp3]</button><br>
          </div>
       </div>
    </body>
