@@ -1,37 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-      <meta
-         name="viewport"
-         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
-         />
-      <title>- Music -</title>
-      <script src="assets/js/script.js"></script>
-   <link rel="shortcut icon" href="img/icons/computer-3.png" type="image/png">
-   <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/win95.css">
+    <title>- music -</title>
+</head>
+<body>
+    <h1>music mp3 player</h1>
+    
+    <div>
+        <select id="songSelector">
+            <option value="assets/audio/sad.mp3"><h1>[sad.mp3]</h1></option>
+            <option value="assets/audio/bot01.mp3">[bot01.mp3]</option>
+            <option value="assets/audio/brain_fried(og demo).mp3">[brain_fried(og demo).mp3]</option>
+        </select>
+        <button class="btn start-button" onclick="playAudio()">Play</button>
+        <button class="btn start-button" onclick="pauseAudio()">Pause</button>
+        <button class="btn start-button" onclick="stopAudio()">Stop</button>
+    </div>
+    
+    <audio id="audioPlayer" controls hidden>
+        <source src="" type="audio/mpeg">
+    </audio>
 
-   <iframe src="assets/audio/silence.mp3" allow="autoplay" id="audio" style="display: none;"></iframe>
-   <audio id="myAudio" loop>
-       <source src="assets/audio/sad.mp3" type="audio/mp3" />
-   </audio>
+    <script>
+        const audioPlayer = document.getElementById("audioPlayer");
+        const songSelector = document.getElementById("songSelector");
 
-   <style>
-      .button {
-         border: none;
-         background-color: inherit;
-         font-size: 16px;
-         cursor: pointer;
-         }
-   </style>
+        function playAudio() {
+            if (audioPlayer.paused || audioPlayer.ended) {
+                const selectedSong = songSelector.value;
+                audioPlayer.src = selectedSong;
+                audioPlayer.play();
+            }
+        }
 
-   </head>
-   <body>
-      <div>
-         <div class="terminal"><br>
-            <font color="limegreen">>>> Music</font><br><br>
-            <button type="button" class="button" onClick="playMyAudio()">[sad.mp3]</button><br>
-         </div>
-      </div>
-   </body>
+        function pauseAudio() {
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+            }
+        }
+
+        function stopAudio() {
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+        }
+    </script>
+</body>
 </html>
