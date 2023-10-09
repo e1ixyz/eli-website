@@ -1,53 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/win95.css">
-    <title>- music -</title>
+    <meta charset="utf-8" />
+    <title>- home -</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+    <meta author="Eli M" />
+    <meta property="og:image" content="assets/preview.png" />
+    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
 </head>
-<body>
-    <h1>music mp3 player</h1>
-    
-    <div>
-        <select id="songSelector">
-            <option value="assets/audio/sad.mp3"><h1>[sad.mp3]</h1></option>
-            <option value="assets/audio/bot01.mp3">[bot01.mp3]</option>
-            <option value="assets/audio/brain_fried(og demo).mp3">[brain_fried(og demo).mp3]</option>
-        </select>
-        <button class="btn start-button" onclick="playAudio()">Play</button>
-        <button class="btn start-button" onclick="pauseAudio()">Pause</button>
-        <button class="btn start-button" onclick="stopAudio()">Stop</button>
+    <div id="app" style="height: 100vh"">
+        <!-- Webamp will attempt to center itself within this div -->
     </div>
-    
-    <audio id="audioPlayer" controls hidden>
-        <source src="" type="audio/mpeg">
-    </audio>
-
+    </div>
+    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
     <script>
-        const audioPlayer = document.getElementById("audioPlayer");
-        const songSelector = document.getElementById("songSelector");
-
-        function playAudio() {
-            if (audioPlayer.paused || audioPlayer.ended) {
-                const selectedSong = songSelector.value;
-                audioPlayer.src = selectedSong;
-                audioPlayer.play();
-            }
+        
+        const Webamp = window.Webamp;
+        const webamp = new Webamp({
+            initialTracks: [
+                {
+                    metaData: {
+                        artist: "eli",
+                        title: "[sad.mp3]"
+                    },
+                    // NOTE: Your audio file must be served from the same domain as your HTML
+                    // file, or served with permissive CORS HTTP headers:
+                    // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+                    url: "https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/sad.mp3",
+                    duration: 5.322286
+                },
+                {
+                    metaData: {
+                        artist: "eli",
+                        title: "[bot01.mp3]"
+                    },
+                    url: "https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/bot01.mp3",
+                    duration: 5.322286
+                },
+                {
+                    metaData: {
+                        artist: "eli",
+                        title: "[brain_fried(og demo).mp3]"
+                    },
+                    url: "https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/brain_fried.mp3",
+                    duration: 5.322286
+                }
+            ],
+        });
+        initialSkin: {
+        url: 
+        "https://skins.webamp.org/skin/b0fb83cc20af3abe264291bb17fb2a13/Winamp5_Classified_v5.5.wsz/"
         }
 
-        function pauseAudio() {
-            if (!audioPlayer.paused) {
-                audioPlayer.pause();
-            }
-        }
+        
 
-        function stopAudio() {
-            if (!audioPlayer.paused) {
-                audioPlayer.pause();
-                audioPlayer.currentTime = 0;
-            }
-        }
+        // Returns a promise indicating when it's done loading.
+        webamp.renderWhenReady(document.getElementById('app'));
+
+        
     </script>
 </body>
+
 </html>
