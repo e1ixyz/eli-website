@@ -6,9 +6,9 @@ if (alerted != 'yes') {
   }
 
 // Audio Button
-function playMyAudio(){
+/* function playMyAudio(){
     document.getElementById("myAudio").play();
-  }
+  } */
 
 // Preloader
 document.addEventListener("DOMContentLoaded", function() {
