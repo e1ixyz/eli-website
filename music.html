@@ -9,6 +9,13 @@
     <meta property="og:image" content="assets/preview.png" />
     <script src="assets/js/script.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
+    <script>
+        var alerted = localStorage.getItem('alerted') || '';
+        if (alerted != 'yes') {
+        alert("Welcome! This page only works on desktops & is unlikely to work on mobile browsers :(");
+        localStorage.setItem('alerted','yes');
+        }
+    </script>
     <style>
         .bg-cloud{
             background-image: url(./assets/img/bg2.gif);
