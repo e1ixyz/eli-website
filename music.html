@@ -3,23 +3,32 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>- home -</title>
+    <title>- music -</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
     <meta author="Eli M" />
     <meta property="og:image" content="assets/preview.png" />
     <script src="assets/js/script.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
+    <style>
+        .bg-cloud{
+            background-image: url(./assets/img/bg2.gif);
+            color:#212529;
+        }
+
+        body {
+            font-family: "MS Sans Serif",Tahoma,Verdana,Segoe,sans-serif; 
+            background: rgb(28, 11, 180);
+            background-image: url(./assets/img/bg1.gif);
+            padding-bottom: 28px;
+            font-family: FSEX300;
+        }
+    </style>
 </head>
-    <div id="app" style="height: 100vh"">
-        <!-- Webamp will attempt to center itself within this div -->
-    </div>
-    </div>
-    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
-    <script>
-        
-        const Webamp = window.Webamp;
-        const webamp = new Webamp({
-            initialTracks: [
+<div id="app" style="height: 100vh""></div>
+<script src="https://unpkg.com/webamp"></script>
+<script>new Webamp({
+
+initialTracks: [
                 {
                     metaData: {
                         artist: "eli",
@@ -42,24 +51,20 @@
                 {
                     metaData: {
                         artist: "eli",
-                        title: "[brain_fried(og demo).mp3]"
+                        title: "[brain_fried.mp3]"
                     },
-                    url: "https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/brain_fried.mp3",
+                    url: "https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/audio/brain_fried.mp3",
                     duration: 5.322286
                 }
             ],
-        });
-        initialSkin: {
+    
+    initialSkin: {
         url: 
-        "https://skins.webamp.org/skin/b0fb83cc20af3abe264291bb17fb2a13/Winamp5_Classified_v5.5.wsz/"
-        }
+      // Find skins https://skins.webamp.org - download them and          host them on your website!
+     "https://raw.githubusercontent.com/elimcgehee/personal-website-4/main/assets/js/Winamp5_Classified_v5.5.wsz"
+    },}).renderWhenReady(app);
 
-        
-
-        // Returns a promise indicating when it's done loading.
-        webamp.renderWhenReady(document.getElementById('app'));
-
-        
+    
     </script>
 </body>
 
