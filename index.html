@@ -13,17 +13,12 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
         <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
+        <link id="stylesheet" rel="stylesheet" type="text/css" href="assets/css/win95.css">
 
         <iframe src="assets/audio/silence.mp3" id="audio" style="display: none;"></iframe>
         <audio id="myAudio">
             <source src="assets/audio/music3.mp3" type="audio/mp3" />
         </audio>
-
-        <script>
-            var bgImages = ["bg1.gif", "bg2.gif", "bg3.gif"];
-            var randomBg = bgImages[Math.floor(Math.random() * bgImages.length)];
-            document.body.style.backgroundImage = "url('assets/img/" + randomBg + "')";
-        </script>
         
     </head>
     <div id="main-content">
@@ -256,10 +251,53 @@
                     <a href="game" class="btn start-button"><img src="assets/icons/computer_taskmgr-0.png" class="icon-16" />&nbsp;</a>
 <!--                     <a href="" class="btn start-button"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16" /><font color="black">&nbsp;Assignments</font>&nbsp;</a> -->
                     <!-- <button type="button" class="btn start-button" onClick="playMyAudio()"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16" /> <font color="black">Assignments</font>&nbsp;</button> -->
+                    <button type="button" class="btn start-button" onclick="toggleStylesheet()"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16"><span style="color: black;">Toggle&nbsp;</span></button>
                 </div>
                 <div class="col-4 time"><img src="assets/icons/world-5.png" class="icon-16" /> e1i.xyz</div>
             </div>
         </footer>
+
+        <script>
+            var isToggled = false; // Define isToggled variable here
+        
+            function setBackgroundImage(image) {
+                document.body.style.backgroundImage = "url('assets/img/" + image + "')";
+            }
+        
+            var bgImages = ["bg1.gif", "bg2.gif", "bg3.gif"];
+            var currentBgIndex = getRandomIndex(bgImages); // Randomly select an initial background
+        
+            setBackgroundImage(bgImages[currentBgIndex]);
+        
+            function toggleStylesheet() {
+                isToggled = !isToggled;
+        
+                if (isToggled) {
+                    document.getElementById("stylesheet").setAttribute("href", "assets/css/win95_dark.css");
+                    setBackgroundImage("bg_dark.gif");
+                } else {
+                    document.getElementById("stylesheet").setAttribute("href", "assets/css/win95.css");
+                    // Reset the currentBgIndex to choose a random background from the array
+                    currentBgIndex = getRandomIndex(bgImages);
+                    setBackgroundImage(bgImages[currentBgIndex]);
+                }
+            }
+        
+            document.addEventListener("DOMContentLoaded", function () {
+                // Add a click event listener to the button
+                document.getElementById("toggleButton").addEventListener("click", toggleStylesheet);
+            });
+        
+            function cycleBackgroundImages() {
+                currentBgIndex = (currentBgIndex + 1) % bgImages.length;
+                var randomBg = bgImages[currentBgIndex];
+                setBackgroundImage(randomBg);
+            }
+        
+            function getRandomIndex(array) {
+                return Math.floor(Math.random() * array.length);
+            }
+        </script>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
