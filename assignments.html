@@ -11,12 +11,44 @@
    <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
    </head>
    <body>
-      <div>
-         <div class="terminal"><br>
-            <font color="limegreen">>>> Assignments</font><br><br>
-            <a class="blink" href="index"><u><font color="limegreen">[⏎ Return to Home]</font></u></a><br><br>
-<!--             <a href="assets/assignments/so1.mp4"><u><font color="limegreen">Share Out #1</font></u></a> -->
+      <div class="terminal">
+         <br>
+         <font color="limegreen">>>> Assignments</font>
+         <br><br>
+         <div class="assignments">
+             <ul>
+                 <!-- Assignment links will be added here dynamically -->
+             </ul>
          </div>
-      </div>
+         <br>
+         <a class="blink" href="index"><u><font color="limegreen">[⏎ Return to Home]</font></u></a>
+     </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+         function updateAssignmentsFromSheet() {
+             const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnbOxOtpBxz4xGZaSZFvHKOggqbbIHeQ-R75tb1l-nfVTEJYttADP9sVFCWXPMQMfeHhFZLKJ1w8LC/pub?output=csv';
+             
+             $.get(googleSheetsURL, function (data) {
+                 const rows = data.split('\n');
+                 const assignmentsContainer = $('.assignments');
+     
+                 for (let i = 1; i < rows.length; i++) {
+                     const columns = rows[i].split(',');
+                     if (columns.length >= 2) {
+                         const assignmentLink = columns[0];
+                         const assignmentDescription = columns[1];
+     
+                         const assignmentElement = $('<a>').attr('href', assignmentLink).addClass('assignment-link');
+                         assignmentElement.text(assignmentDescription);
+     
+                         const listItem = $('<li>').append(assignmentElement);
+                         assignmentsContainer.append(listItem);
+                     }
+                 }
+             });
+         }
+     
+         updateAssignmentsFromSheet();
+     </script>
    </body>
 </html>
