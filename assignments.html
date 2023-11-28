@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+         />
+      <title>- Assignments -</title>
+   <link rel="shortcut icon" href="img/icons/computer-3.png" type="image/png">
+   <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
+   </head>
+   <body>
+      <div class="terminal">
+         <br>
+         <font color="limegreen">>>> Assignments</font>
+         <br><br>
+         <div class="assignments">
+             <ul>
+                 <!-- Assignment links will be added here dynamically -->
+             </ul>
+         </div>
+         <br>
+         <a class="blink" href="index"><u><font color="limegreen">[⏎ Return to Home]</font></u></a>
+     </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+         function updateAssignmentsFromSheet() {
+             const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnbOxOtpBxz4xGZaSZFvHKOggqbbIHeQ-R75tb1l-nfVTEJYttADP9sVFCWXPMQMfeHhFZLKJ1w8LC/pub?output=csv';
+             
+             $.get(googleSheetsURL, function (data) {
+                 const rows = data.split('\n');
+                 const assignmentsContainer = $('.assignments ul');
+ 
+                 for (let i = 1; i < rows.length; i++) {
+                     const columns = rows[i].split(',');
+                     if (columns.length >= 3) {
+                         const assignmentLink = columns[1].trim(); // Get link from column B
+                         const assignmentDescription = columns[2].trim(); // Get assignment name from column C
+ 
+                         const assignmentElement = $('<a>').attr('href', assignmentLink).addClass('assignment-link');
+                         assignmentElement.text(assignmentDescription);
+ 
+                         const listItem = $('<li>').append(assignmentElement);
+                         assignmentsContainer.append(listItem);
+                     }
+                 }
+             });
+         }
+ 
+         updateAssignmentsFromSheet();
+     </script>
+   </body>
+</html>
