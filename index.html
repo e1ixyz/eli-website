@@ -143,10 +143,35 @@
                           <center>
                             <img src="assets/icons/help_book_cool-1.png" />
                             I make a variety of stylized websites ranging from silly personal websites to more professional portfolio sites. If you are interested in a website for yourself or your brand, please contact me via the provided emails or social media accounts!<br><br><!-- <button type="button" class="btn start-button" onclick='window.scrollTo({top: 0, behavior: "smooth"});'>&nbsp;<img src="assets/icons/tree-0.png" class="icon-16" />&nbsp;</button> --><img src="assets/img/preloader.gif" style="height: 100px;" /><br><br>
-                            <div class="btn-group btn-block" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary"><a target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/1U3hdETtgPW8I0ky_UO9tTxRTJJ4AplXi?usp=share_link">Client Photo Submission</a></button>
-                            </div>
                           </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="page-content">
+            <div class="row mb-5">
+                <div class="col-md-3 text-center"></div>
+                <div class="col-md-6 my-auto">
+                    <div class="card">
+                        <div class="card-header icon">
+                            <h4 class="my-0 font-weight-normal"><img src="assets/icons/note-0.png" /> Clients</h4>
+                        </div>
+                        <div class="card-body">
+                            <img src="assets/icons/help_book_cool-1.png" />
+                            If you are a client and would like to access your website portal, type your website domain in the box below and press the submit button! (For example, I would type: e1i.xyz)<br><br>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="inputDomain" class="col-sm-2 col-form-label"> Domain:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputDomain">
+                                    </div>
+                                </div>
+                                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary" id="redirectToAdmin" style="color: blue;">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -327,6 +352,25 @@
             function getRandomIndex(array) {
                 return Math.floor(Math.random() * array.length);
             }
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $('#redirectToAdmin').click(function () {
+                    var inputDomain = $('#inputDomain').val();
+                    if (inputDomain !== "") {
+                        // Check if the input contains 'http://' or 'https://', if not, add 'https://'
+                        if (!inputDomain.match(/^https?:\/\//i)) {
+                            inputDomain = 'https://' + inputDomain;
+                        }
+                        // Append '/admin' to the input domain
+                        var adminURL = inputDomain + '/admin';
+                        // Redirect the user to the admin URL
+                        window.location.href = adminURL;
+                    } else {
+                        alert("Please enter a valid website domain.");
+                    }
+                });
+            });
         </script>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
