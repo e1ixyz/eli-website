@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+         />
+      <title>Music</title>
+   <link rel="shortcut icon" href="assets/icons/computer-3.png" type="image/png" />
+   <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
+   <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
+   <script src="https://unpkg.com/butterchurn@2.6.7/lib/butterchurn.min.js"></script>
+   <script src="https://unpkg.com/butterchurn-presets@2.4.7/lib/butterchurnPresets.min.js"></script>
+   <script src="assets/js/alert.js"></script>
+   </head>
+   <body class="bg-cloud">
+      <div>
+         <div class="terminal"><br>
+
+               <div id="app" style="height: 50vh""></div>
+               <script src="https://unpkg.com/webamp"></script>
+               <script>new Webamp({
+               
+               initialTracks: [
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[sad.mp3]"
+                                   },
+                                   // NOTE: Your audio file must be served from the same domain as your HTML
+                                   // file, or served with permissive CORS HTTP headers:
+                                   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/sad.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[bot01.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/bot01.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[brain_fried.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/brain_fried.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[eliwave.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/music3.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[ae3.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/escape.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[lost.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/lost.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[found.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/found.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[gnu.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/gnu.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[sub.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/sub.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[realm.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/realm.mp3",
+                                   duration: 5.322286
+                               },
+                               {
+                                   metaData: {
+                                       artist: "eli",
+                                       title: "[cloud.mp3]"
+                                   },
+                                   url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/cloud.mp3",
+                                   duration: 5.322286
+                               },
+                               
+                           ],
+                
+                __butterchurnOptions: {
+                importButterchurn: () => Promise.resolve(window.butterchurn),
+                getPresets: () => {
+                    const presets = window.butterchurnPresets.getPresets();
+                    return Object.keys(presets).map((name) => {
+                        return {
+                            name,
+                            butterchurnPresetObject: presets[name]
+                        };
+                    });
+                },
+                butterchurnOpen: true
+                },
+                   initialSkin: {
+                       url: 
+                     // Find skins https://skins.webamp.org - download them and          host them on your website!
+                    "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/skins/Winamp5_Classified_v5.5.wsz"
+                   },}).renderWhenReady(document.getElementById('app'));
+               
+                   
+                   </script>
+        <script src="assets/js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+         </div>
+      </div>
+   </body>
+</html>
