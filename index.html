@@ -16,7 +16,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8" />
-        <title>- home -</title>
+        <title>Home</title>
         <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
         <meta author="e1i.xyz" />
         <meta property="og:image" content="assets/preview.png" />
@@ -27,11 +27,6 @@
 
         <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
         <link id="stylesheet" rel="stylesheet" type="text/css" href="assets/css/win95.css">
-
-        <iframe src="assets/audio/silence.mp3" id="audio" style="display: none;"></iframe>
-        <audio id="myAudio">
-            <source src="assets/audio/music3.mp3" type="audio/mp3" />
-        </audio>
         
     </head>
     <div id="main-content">
@@ -81,14 +76,14 @@
                                 <img src="assets/icons/help_book_cool-1.png" />
                                 Hello! My name is Eli, and I make websites! :) I am a student at
                                 <a target="_blank" rel="noopener noreferrer" href="https://www.newschool.edu/">The New School</a>
-                                living in Brooklyn. My hobbies include coding, music production, and graphic design!
+                                living in Brooklyn. My hobbies include coding, music production, and graphic design!<br>
                             </ul>
-                                <img src="assets/img/cdcd.gif" style="height: 200px; border-radius: 25px;" /><br />
+                                <a href="music.html"><img src="assets/img/cdcd.gif" style="height: 200px; border-radius: 25px;" /></a><br />
 <!--                                      <img src="assets/img/mm1.gif" style="height: 100px;"> -->
 <!--                                      <img src="assets/img/mm2.gif" style="height: 256px;"> -->
 <!--                                      <img src="assets/img/mm3.gif" style="height: 256px;"> -->
-                                <br /><br>
-                                ⚠️ <a target="_blank" rel="noopener noreferrer" href="https://www.dialoguesondiversity.com/social-justice-resources">Resources For Social Justice</a> ⚠️
+                                <br />
+                                ⚠️ <a href="music.html">Click the CD to hear my music!</a> ⚠️
                             </center>
                             <br />
                             <div class="btn-group btn-block" role="group" aria-label="Basic example">
@@ -115,7 +110,7 @@
                           <center>
                             <ul class="list-unstyled mt-3 mb-4">
                                 <img src="assets/icons/help_book_cool-1.png" />
-                                Feel free to contact me via my email or any of my socials listed above.
+                                Feel free to contact me via my email or any of my socials listed above if you are interested in a website!
                             </ul>
                             <img src="assets/img/robot1.gif" style="height: 125px;" />
                             <img src="assets/img/robot2.gif" style="height: 125px;" /><br /><br>
@@ -176,130 +171,6 @@
             </div>
         </div>        
 
-        <div class="container" id="page-content">
-            <div class="row mb-5">
-                <div class="col-md-3 text-center"></div>
-                <div class="col-md-6 my-auto">
-                    <div class="card">
-                        <div class="card-header icon">
-                            <h4 class="my-0 font-weight-normal"><img src="assets/icons/note-0.png" /> Music</h4>
-                        </div>
-                        <div class="card-body">
-                          <center>
-                            <div id="app" style="height: 50vh""></div>
-                            <script src="https://unpkg.com/webamp"></script>
-                            <script>new Webamp({
-                            
-                            initialTracks: [
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[sad.mp3]"
-                                                },
-                                                // NOTE: Your audio file must be served from the same domain as your HTML
-                                                // file, or served with permissive CORS HTTP headers:
-                                                // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/sad.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[bot01.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/bot01.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[brain_fried.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/brain_fried.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[eliwave.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/music3.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[ae3.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/escape.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[lost.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/lost.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[found.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/found.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[gnu.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/gnu.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[sub.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/sub.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[realm.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/realm.mp3",
-                                                duration: 5.322286
-                                            },
-                                            {
-                                                metaData: {
-                                                    artist: "eli",
-                                                    title: "[cloud.mp3]"
-                                                },
-                                                url: "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/audio/cloud.mp3",
-                                                duration: 5.322286
-                                            },
-                                            
-                                        ],
-                                
-                                initialSkin: {
-                                    url: 
-                                  // Find skins https://skins.webamp.org - download them and          host them on your website!
-                                 "https://raw.githubusercontent.com/e1ixyz/eli-website/main/assets/skins/Winamp5_Classified_v5.5.wsz"
-                                },}).renderWhenReady(app);
-                            
-                                
-                                </script>
-                          </center>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <center>
             <img src="assets/img/wabwalk.gif" style="width: 100px; height: 100px;"><img src="assets/img/webtrips.gif" style="width: 100px; height: 100px;">
             <br/>
@@ -317,6 +188,7 @@
             <div class="row" style="margin-right: 0px;">
                 <div class="col-8">
                     <a target="_blank" rel="noopener noreferrer" href="https://github.com/AlexBSoft/win95.css" class="btn start-button"><img src="assets/icons/utopia_smiley.png" class="icon-16" /> <font color="black">Inspo</font>&nbsp;</a>
+                    <a href="music.html" class="btn start-button"><img src="assets/icons/cd_audio_cd_a-4.png" class="icon-16" /> <font color="black">Music</font>&nbsp;</a>
                     <a href="assignments" class="btn start-button"><img src="assets/icons/computer_taskmgr-0.png" class="icon-16" />&nbsp;</a>
                     <button type="button" class="btn start-button" onclick="toggleColorize()"><img src="assets/icons/msg_warning-0.png" class="icon-16">&nbsp;</button>
 <!--                     <a href="" class="btn start-button"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16" /><font color="black">&nbsp;Assignments</font>&nbsp;</a> -->

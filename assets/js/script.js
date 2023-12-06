@@ -1,14 +1,14 @@
 // Join Alert
-var alerted = localStorage.getItem('alerted') || '';
+/* var alerted = localStorage.getItem('alerted') || '';
 if (alerted != 'yes') {
  alert("Welcome! For the optimal user experience, please enable audio in your browser settings. =)");
  localStorage.setItem('alerted','yes');
-  }
+  } */
 
 // Audio Button
-function playMyAudio(){
+/* function playMyAudio(){
     document.getElementById("myAudio").play();
-  }
+  } */
 
 // Preloader
 document.addEventListener("DOMContentLoaded", function() {
