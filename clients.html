@@ -40,7 +40,27 @@
         </div><br>   
          <a class="blink" href="index"><u><font color="limegreen">[⏎ Return to Home]</font></u></a>
      </div>
-     <script src="assets/js/script.js"></script>
+     <script>
+        // Client Portal Redirect
+
+            document.addEventListener("DOMContentLoaded", function () {
+                $('#redirectToAdmin').click(function () {
+                    var inputDomain = $('#inputDomain').val();
+                    if (inputDomain !== "") {
+                        // Check if the input contains 'http://' or 'https://', if not, add 'https://'
+                        if (!inputDomain.match(/^https?:\/\//i)) {
+                            inputDomain = 'https://' + inputDomain;
+                        }
+                        // Append '/admin' to the input domain
+                        var adminURL = inputDomain + '/admin';
+                        // Redirect the user to the admin URL
+                        window.location.href = adminURL;
+                    } else {
+                        alert("Please enter a valid website domain.");
+                    }
+                });
+            });
+     </script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

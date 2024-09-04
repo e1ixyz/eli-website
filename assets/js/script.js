@@ -102,23 +102,3 @@ function cycleBackgroundImages() {
 function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
 }
-
-// Client Portal Redirect
-
-document.addEventListener("DOMContentLoaded", function () {
-    $('#redirectToAdmin').click(function () {
-        var inputDomain = $('#inputDomain').val();
-        if (inputDomain !== "") {
-            // Check if the input contains 'http://' or 'https://', if not, add 'https://'
-            if (!inputDomain.match(/^https?:\/\//i)) {
-                inputDomain = 'https://' + inputDomain;
-            }
-            // Append '/admin' to the input domain
-            var adminURL = inputDomain + '/admin';
-            // Redirect the user to the admin URL
-            window.location.href = adminURL;
-        } else {
-            alert("Please enter a valid website domain.");
-        }
-    });
-});
