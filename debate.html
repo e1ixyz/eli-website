@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debate: Execs vs. Artists</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1a1a1a, #333);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 3em;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px #000;
+    }
+    
+    /* Start button container */
+    #start-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+    
+    #start-button {
+      background-color: #ff4757;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 71, 87, 0.7);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    #start-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 71, 87, 1);
+    }
+    
+    /* Countdown overlay */
+    #countdown {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5em;
+      color: #fffa;
+      z-index: 1000;
+      display: none;
+      text-shadow: 2px 2px 8px #000;
+    }
+    
+    /* Container for columns */
+    .container {
+      display: flex;
+      justify-content: space-around;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 1200px;
+    }
+    
+    /* Column styles */
+    .column {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #555;
+      border-radius: 10px;
+      width: 45%;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    }
+    
+    .column h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    
+    /* Each entry */
+    .entry {
+      font-size: 1.2em;
+      margin: 10px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+      padding: 5px;
+      border-bottom: 1px dashed #666;
+    }
+    
+    .entry.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Debate!</h1>
+  
+  <!-- Start button container -->
+  <div id="start-container">
+    <button id="start-button">Choose your Character!</button>
+  </div>
+  
+  <!-- Countdown display -->
+  <div id="countdown"></div>
+  
+  <div class="container">
+    <div class="column" id="execColumn">
+      <h2>Executives</h2>
+      <!-- Executive entries will appear here -->
+    </div>
+    <div class="column" id="artistColumn">
+      <h2>Independent Artists</h2>
+      <!-- Artist entries will appear here -->
+    </div>
+  </div>
+
+  <script>
+    // List of 20 students
+    let students = [
+      "Duncan",
+      "Kobie",
+      "Ella",
+      "Eli",
+      "Sasha",
+      "Efram",
+      "Charlotte",
+      "George",
+      "Marcelo",
+      "Findlay",
+      "Sangmin",
+      "Lu",
+      "Elleyse",
+      "Ryder",
+      "Case",
+      "Alia",
+      "Pheonix",
+      "Catalina",
+      "Ky",
+      "Ryan"
+    ];
+
+    // Fake Executive Names and Companies (10 each)
+    let execNames = [
+      "Alexander Sterling",
+      "Briana Holt",
+      "Charles Montgomery",
+      "Daphne Kingsley",
+      "Evelyn Beaumont",
+      "Frederick Langford",
+      "Gabriella Moreau",
+      "Harrison Blackwood",
+      "Isadora Vanderbilt",
+      "Julian Ashford"
+    ];
+    
+    let execCompanies = [
+      "TechNova Inc.",
+      "Global Dynamics",
+      "Innovatech Solutions",
+      "Vantage Industries",
+      "Quantum Corp.",
+      "Synergy Systems",
+      "Vertex Enterprises",
+      "Pinnacle Partners",
+      "Crestview Holdings",
+      "Summit Strategies"
+    ];
+
+    // Fake Independent Artist Names and Genres (10 each)
+    let artistNames = [
+      "Luna Skye",
+      "Phoenix Rayne",
+      "Orion Storm",
+      "Nova Blue",
+      "Aurora Wild",
+      "Sienna Blaze",
+      "Zephyr Moon",
+      "Indigo Frost",
+      "Cleo Rhapsody",
+      "Seraphina Echo"
+    ];
+    
+    let artistGenres = [
+      "Rock",
+      "Jazz",
+      "Pop",
+      "Hip-Hop",
+      "Country",
+      "Electronic",
+      "Reggae",
+      "Blues",
+      "Folk",
+      "Indie"
+    ];
+
+    // Global AudioContext (created on button click for user-interaction)
+    let audioCtx;
+
+    // Utility: Shuffle an array using Fisher-Yates shuffle
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Shuffle the students so the assignment is random
+    let shuffledStudents = shuffle(students.slice()); // copy so original isn't mutated
+
+    // Split into two groups: first 10 become Executives, next 10 become Artists
+    let execStudents = shuffledStudents.slice(0, 10);
+    let artistStudents = shuffledStudents.slice(10, 20);
+
+    // Create arrays of entry objects with additional details for each role
+    let execEntries = execStudents.map((student, index) => {
+      return {
+        student: student,
+        execName: execNames[index],
+        company: execCompanies[index]
+      };
+    });
+
+    let artistEntries = artistStudents.map((student, index) => {
+      return {
+        student: student,
+        artistName: artistNames[index],
+        genre: artistGenres[index]
+      };
+    });
+
+    // Function to play a beep sound using the Web Audio API
+    function beep(duration, frequency, volume, type, callback) {
+      let osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = type || "sine";
+      osc.frequency.value = frequency || 440;
+      gain.gain.value = volume || 0.2;
+      osc.start();
+      setTimeout(function(){
+        osc.stop();
+        if(callback) callback();
+      }, duration);
+    }
+
+    // Functions to add entries to the corresponding columns with animation and sound effects
+    function addExecEntry(entry) {
+      const execColumn = document.getElementById("execColumn");
+      const div = document.createElement("div");
+      div.classList.add("entry");
+      div.innerHTML = `<strong>${entry.student}</strong> as <em>${entry.execName}</em> - ${entry.company}`;
+      execColumn.appendChild(div);
+      // Animate and play a beep sound effect
+      setTimeout(() => {
+        div.classList.add("show");
+        beep(150, 600, 0.3, "sine");
+      }, 50);
+    }
+
+    function addArtistEntry(entry) {
+      const artistColumn = document.getElementById("artistColumn");
+      const div = document.createElement("div");
+      div.classList.add("entry");
+      div.innerHTML = `<strong>${entry.student}</strong> as <em>${entry.artistName}</em> - ${entry.genre}`;
+      artistColumn.appendChild(div);
+      // Animate and play a beep sound effect
+      setTimeout(() => {
+        div.classList.add("show");
+        beep(150, 600, 0.3, "sine");
+      }, 50);
+    }
+
+    // Reveal entries one pair (one exec and one artist) at a time to build suspense
+    let execIndex = 0;
+    let artistIndex = 0;
+    
+    function revealEntries() {
+      if (execIndex < execEntries.length) {
+        addExecEntry(execEntries[execIndex]);
+        execIndex++;
+      }
+      if (artistIndex < artistEntries.length) {
+        addArtistEntry(artistEntries[artistIndex]);
+        artistIndex++;
+      }
+      // Continue revealing entries until both lists are complete
+      if (execIndex < execEntries.length || artistIndex < artistEntries.length) {
+        setTimeout(revealEntries, 1000); // Reveal a new pair every second
+      }
+    }
+    
+    // Function to start the countdown and then the reveal sequence
+    function startCountdown() {
+      // Initialize the AudioContext on user interaction.
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // Hide the start button container
+      document.getElementById('start-container').style.display = 'none';
+      const countdownEl = document.getElementById('countdown');
+      countdownEl.style.display = 'block';
+      let count = 3;
+      countdownEl.textContent = count;
+      let countdownInterval = setInterval(() => {
+         // Play a beep for each tick
+         beep(150, 800, 0.3, "sine");
+         count--;
+         if(count > 0) {
+           countdownEl.textContent = count;
+         } else if (count === 0) {
+           countdownEl.textContent = "Go!";
+         } else {
+           clearInterval(countdownInterval);
+           countdownEl.style.display = 'none';
+           revealEntries();
+         }
+      }, 1000);
+    }
+    
+    // Attach event listener to the start button
+    document.getElementById('start-button').addEventListener('click', startCountdown);
+  </script>
+</body>
+</html>
