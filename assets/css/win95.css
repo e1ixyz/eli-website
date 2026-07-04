@@ -343,7 +343,7 @@ NAVBAR
 
 */
 .navbar-95{
-    
+
     background: silver;
     margin: 0;
     border: 1px outset #fff;
@@ -351,6 +351,8 @@ NAVBAR
     padding: 0 6px;
     color:#212529;
 }
+/* keep the nav dropdowns inline at all widths (Bootstrap stacks .navbar-nav below the lg breakpoint) */
+.navbar-95 .navbar-nav{ flex-direction: row; }
 
 .navbar-brand{
     color:#212529;
@@ -421,6 +423,8 @@ FOOTER
     font-size: 14px;
     color: blue;
 }
+/* keep all taskbar buttons on one line even when the column gets narrow */
+.taskbar .col-8{ white-space: nowrap; }
 .taskbar .time {
     color:#212529;
     margin-top: 2px;

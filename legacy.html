@@ -1,0 +1,135 @@
+<!--
+     _________
+    / ======= \
+   / __________\
+  | ___________ |
+  | | -       | |
+  | |         | |
+  | |_________| |________________________
+  \=____________/   made by e1i.xyz      )
+  / """"""""""" \                       /
+ / ::::::::::::: \                  =D-'
+(_________________)
+-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Legacy Music</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+        <meta author="e1i.xyz" />
+        <meta property="og:image" content="assets/preview.png" />
+
+        <link rel="shortcut icon" href="assets/icons/computer-3.png" type="image/png" />
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+        <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
+        <link id="stylesheet" rel="stylesheet" type="text/css" href="assets/css/win95.css">
+
+        <script>
+            // Anti-flash: apply the saved theme's stylesheet before paint. No boot splash on
+            // this subpage — script.js's setTheme(saved) on load still swaps the Webamp skin.
+            (function () {
+                var v = localStorage.getItem("winver"), l = document.getElementById("stylesheet");
+                if (l && v === "vista") l.href = "assets/css/vista.css";
+                else if (l && v === "dark95") l.href = "assets/css/win95_dark.css";
+            })();
+        </script>
+    </head>
+    <div id="main-content">
+        <div id="preloader"></div>
+
+    <body class="bg-cloud">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-95">
+            <a class="navbar-brand" href="https://www.e1i.xyz/"> <img src="assets/icons/computer-3.png" /> e1i.xyz</a>
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Directory
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="index.html">Home</a>
+                            <a class="dropdown-item" href="index.html#app">Music</a>
+                            <a class="dropdown-item" href="files.html">Files</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <br />
+
+        <div class="container" id="page-content">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-auto text-center">
+                    <!-- ponytail: same sizing as index.html's player so Webamp's centered cluster sits flush -->
+                    <div id="app" style="position: relative; width: 275px; min-height: 500px; margin: 0 auto;"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="taskbar">
+            <div class="row" style="margin-right: 0px;">
+                <div class="col-8">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/AlexBSoft/win95.css" class="btn start-button"><img src="assets/icons/utopia_smiley.png" class="icon-16" /> <font color="black">Inspo</font>&nbsp;</a>
+                    <button type="button" class="btn start-button" onclick="toggleColorize()"><img src="assets/icons/msg_warning-0.png" class="icon-16">&nbsp;</button>
+                    <button type="button" class="btn start-button" onclick="toggleStylesheet()"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16">&nbsp;</button>
+                    <button type="button" class="btn start-button" onclick="toggleVista()"><img src="assets/icons/computer_2_cool-1.png" class="icon-16"> <font color="black">Version</font>&nbsp;</button>
+                    <button type="button" class="btn start-button" onclick="toggleSound()" id="sound-btn"><img src="assets/icons/loudspeaker_rays_green-0.png" class="icon-16"> <font color="black">Sound</font>&nbsp;</button>
+                </div>
+                <div class="col-4 time"><img src="assets/icons/world-5.png" class="icon-16" /> e1i.xyz</div>
+            </div>
+        </footer>
+
+        <!-- Webamp legacy player (folded in from eli-music/legacy.html) -->
+        <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
+        <script src="https://unpkg.com/butterchurn@2.6.7/lib/butterchurn.min.js"></script>
+        <script src="https://unpkg.com/butterchurn-presets@2.4.7/lib/butterchurnPresets.min.js"></script>
+        <script>
+            const Webamp = window.Webamp;
+            const AUDIO_BASE = "assets/audio/";
+            const webamp = new Webamp({
+                initialTracks: [
+                    { metaData: { title: "[regex.wav]" },       url: AUDIO_BASE + "regex.wav" },
+                    { metaData: { title: "[aero.mp3]" },        url: AUDIO_BASE + "aero.mp3" },
+                    { metaData: { title: "[brain_fried.mp3]" }, url: AUDIO_BASE + "brain_fried.mp3" },
+                    { metaData: { title: "[eliwave.mp3]" },     url: AUDIO_BASE + "eliwave.mp3" },
+                    { metaData: { title: "[itry.mp3]" },        url: AUDIO_BASE + "itry.mp3" },
+                    { metaData: { title: "[found.mp3]" },       url: AUDIO_BASE + "found.mp3" },
+                    { metaData: { title: "[blue.mp3]" },        url: AUDIO_BASE + "blue.mp3" },
+                    { metaData: { title: "[sub.mp3]" },         url: AUDIO_BASE + "sub.mp3" },
+                    { metaData: { title: "[realm.mp3]" },       url: AUDIO_BASE + "realm.mp3" },
+                    { metaData: { title: "[cloud.mp3]" },       url: AUDIO_BASE + "cloud.mp3" },
+                ],
+                __butterchurnOptions: {
+                    importButterchurn: () => Promise.resolve(window.butterchurn),
+                    getPresets: () => {
+                        const presets = window.butterchurnPresets.getPresets();
+                        return Object.keys(presets).map((name) => ({
+                            name,
+                            butterchurnPresetObject: presets[name],
+                        }));
+                    },
+                    butterchurnOpen: false,
+                },
+                __initialWindowLayout: {
+                    main: { position: { x: 0, y: 0 } },
+                    equalizer: { position: { x: 0, y: 116 } },
+                    playlist: { position: { x: 0, y: 232 }, size: [0, 5] },
+                    milkdrop: { position: { x: 275, y: 0 }, size: [7, 12] },
+                },
+                initialSkin: { url: "assets/skins/Winamp5_Classified_v5.5.wsz" },
+            });
+            window.webamp = webamp; // let setTheme() swap the skin per theme
+            webamp.renderWhenReady(document.getElementById("app"));
+        </script>
+
+        <script src="assets/js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        </div>
+    </body>
+</html>

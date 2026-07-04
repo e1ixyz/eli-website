@@ -1,0 +1,442 @@
+/*
+
+    VISTA.CSS
+    Windows Vista "Aero" skin — overrides win95.css from the #stylesheet slot.
+    Same selector set as win95.css / win95_dark.css so it fully restyles index.html.
+
+*/
+
+/* Vista drops the bottom retro-badge strip; the card GIFs stay */
+#retro-badges { display: none; }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+/*
+
+Body styles
+
+*/
+body {
+    font-family: "Segoe UI", Frutiger, Tahoma, Verdana, sans-serif;
+    /* fallback under the JS-set Aurora image */
+    background: linear-gradient(135deg,#04102e,#0a2a63 45%,#0e5a7a);
+    background-attachment: fixed;
+    color: #1b1b1b;
+    padding-bottom: 28px;
+}
+.bg-cloud {
+    color: #1b1b1b;
+}
+
+/*
+
+Link color
+
+*/
+a:link    { color: #0066cc; }
+a:visited { color: #0066cc; text-decoration: none; }
+a:hover   { color: #3399ff; }
+a:active  { color: #0055aa; }
+
+/*
+
+Header
+
+*/
+header {
+    position: relative;
+    background-color: black;
+    height: 100vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    transform: translateX(-50%) translateY(-50%);
+}
+header .container {
+    position: relative;
+    z-index: 2;
+}
+
+/*
+
+Scrollbar (chrome & safari) — light Aero glass
+
+*/
+::-webkit-scrollbar {
+    width: 16px;
+}
+::-webkit-scrollbar-track {
+    background: #eef4fb;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg,#e3eefb,#b7d4f0);
+    border: 1px solid #7aa5c9;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg,#eaf4ff,#a5d0f5);
+}
+
+/*
+
+    Button styles — glossy Aero
+
+*/
+.btn {
+    border: 1px solid #7aa5c9;
+    border-radius: 3px;
+    background: linear-gradient(#ffffff,#eaf3fb 48%,#dcebf8 52%,#eaf3fb);
+    color: #1b3a5c;
+    padding: 2px 4px 4px;
+    box-shadow: inset 0 1px #fff;
+    text-shadow: 0 1px #fff;
+}
+.btn:hover {
+    border: 1px solid #3c7fb1;
+    background: linear-gradient(#f2f9ff,#dcefff 48%,#c9e6fb 52%,#dcefff);
+    color: #0b3a67;
+    box-shadow: inset 0 1px #fff, 0 0 5px #a5d4ff;
+}
+.btn:focus,
+.btn:active {
+    border: 1px solid #2c628b !important;
+    background: linear-gradient(#cfe6fa,#bcdcf6 48%,#a9d0f2 52%,#bcdcf6) !important;
+    color: #0b3a67;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.2) !important;
+    outline: 0 !important;
+}
+
+.btn-primary {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+button:focus {
+    outline: 0;
+}
+.btn.disabled, .btn:disabled {
+    cursor: default;
+    background: #eef2f6;
+    border: 1px solid #c7ced6;
+    color: #a0a8b0;
+    text-shadow: none;
+}
+
+/*
+
+CARDS — rounded white Aero panels
+
+*/
+.card {
+    border: 1px solid #a9c6e0;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #1b1b1b;
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    overflow: hidden;
+}
+.card.square { border-radius: 0px; }
+.card.square .card-header { border-radius: 0px; }
+.card.w95 .card-header { background: #cfe3f5; }
+.card-header {
+    background: linear-gradient(#e4f0fb,#cfe3f5);
+    color: #0b3a67;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 8px;
+    text-align: left;
+    font-family: "Segoe UI", Frutiger, Tahoma, sans-serif;
+    font-weight: 600;
+    border-bottom: 1px solid #b7d0e8;
+    text-shadow: 0 1px #fff;
+}
+.card-header.icon { padding-left: 6px; }
+.header-inactive { background: #e6e6e6 !important; }
+
+/*
+
+LIST GROUPS
+
+*/
+.list-group {
+    border: 1px solid #a9c6e0;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #1b1b1b;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    background: transparent;
+    color: #1b1b1b;
+}
+.list-group-item-primary {
+    color: #0b3a67;
+    background: linear-gradient(#e4f0fb,#cfe3f5);
+}
+.list-group-item-action:hover { color: #0066cc; }
+
+/*
+
+NAVBAR — dark Aero glass
+
+*/
+.navbar-95 {
+    background: linear-gradient(rgba(40,62,92,.94),rgba(18,34,60,.94));
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(0,0,0,.5);
+    box-shadow: inset 0 1px rgba(255,255,255,.35);
+    min-height: 40px;
+    padding: 0 6px;
+    color: #eaf2fb;
+}
+.navbar-95 .navbar-brand {
+    color: #ffffff;
+    padding: 0 6px;
+    text-shadow: 0 1px rgba(0,0,0,.5);
+}
+/* ponytail: qualified with .navbar-95 to out-specify Bootstrap's .navbar-light rules */
+.navbar-95 .navbar-nav .nav-link {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0 9px;
+    color: #eaf2fb;
+    text-shadow: 0 1px rgba(0,0,0,.5);
+}
+.navbar-95 .navbar-nav .nav-link:hover { color: #ffffff; }
+.dropdown-menu {
+    display: none;
+    min-width: 140px;
+    padding: 4px 0;
+    margin-left: 12px;
+    font-size: 13px;
+    list-style-type: none;
+    background: #ffffff;
+    border: 1px solid #a9c6e0;
+    border-radius: 5px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
+.dropdown-item { padding: 4px 12px; color: #1b1b1b; }
+.dropdown-item:hover { color: #0b3a67; background: #dcebf8; }
+.navbar-light .navbar-toggler.collapsed .navbar-toggler-icon {
+    width: 32px;
+    background: url(icons/directory_closed_cool-5.png);
+}
+.navbar-light .navbar-toggler .navbar-toggler-icon {
+    width: 32px;
+    background: url(icons/directory_open_cool-5.png);
+}
+.navbar-toggler { width: auto; }
+
+/*
+
+FOOTER — signature Vista taskbar (translucent blue glass)
+
+*/
+.taskbar {
+    cursor: default;
+    background: linear-gradient(rgba(44,74,120,.92),rgba(14,30,58,.92) 55%,rgba(24,48,84,.94));
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    margin: 16px 0 0 0;
+    padding: 4px 8px;
+    border-top: 1px solid rgba(255,255,255,.5);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,.25);
+    z-index: 228;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.taskbar .start-button {
+    cursor: default;
+    display: inline-block;
+    border: 1px solid rgba(120,170,220,.7);
+    border-radius: 4px;
+    padding: 1px 6px 1px 2px;
+    background: linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.05) 50%,rgba(255,255,255,.14));
+    box-shadow: inset 0 1px rgba(255,255,255,.5);
+    margin-bottom: 2px;
+    font-size: 14px;
+    color: #eaf2fb;
+}
+.taskbar .start-button:hover {
+    background: linear-gradient(rgba(180,220,255,.5),rgba(120,180,240,.25) 50%,rgba(150,200,250,.35));
+    border-color: rgba(180,220,255,.9);
+}
+.taskbar .start-button font { color: #ffffff !important; text-shadow: 0 1px rgba(0,0,0,.5); }
+.taskbar .time {
+    color: #eaf2fb;
+    margin-top: 4px;
+    text-align: right;
+    font-size: 14px;
+    text-shadow: 0 1px rgba(0,0,0,.5);
+}
+/* Vista hides #retro-badges, so pad the bottom to clear the absolute taskbar */
+#page-content { flex: 1 0 auto; padding-bottom: 72px; }
+
+/*
+
+ICONS
+
+*/
+.icon-16   { margin-bottom: 2px; max-height: 16px; }
+.icon-16-4 { margin-bottom: 4px; max-height: 16px; }
+
+/*
+
+FORMS
+
+*/
+.form-95 {
+    width: 100%;
+    border: 1px solid #7aa5c9;
+    border-radius: 3px;
+    color: #1b1b1b;
+    background: #fff;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.12);
+    margin-top: 4px;
+    padding-left: 4px;
+}
+.bootstrap-select,
+textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+[type=text].form-control:focus,
+[type=password].form-control:focus,
+[type=email].form-control:focus,
+[type=tel].form-control:focus,
+[contenteditable].form-control:focus {
+    outline: 0 !important;
+    border-color: #3c7fb1;
+    box-shadow: 0 0 4px #a5d4ff;
+}
+
+/*
+
+Progress bar — glossy Aero green
+
+*/
+.progress {
+    height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #eef4fb;
+    border-radius: 4px;
+    border: 1px solid #a9c6e0;
+    color: #1b1b1b;
+}
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(#8ee06a,#4fae2e);
+    transition: width .6s ease;
+}
+.progress-bar-blocks {
+    background-image: linear-gradient(90deg,transparent 75%,rgba(255,255,255,.4) 25%);
+    background-size: 1rem 1rem;
+}
+
+/*
+
+TABS
+
+*/
+.tab-content {
+    background: #ffffff;
+    border: 1px solid #a9c6e0;
+    border-radius: 0 0 6px 6px;
+    padding: 1rem 1.4rem;
+}
+.nav-tabs { border-bottom: 1px solid #a9c6e0; }
+.nav-tabs .nav-item {
+    position: relative;
+    margin-bottom: 0;
+    background: linear-gradient(#f2f8fe,#dcebf8);
+    color: #0b3a67;
+    border: 1px solid #a9c6e0;
+    border-bottom: 0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    box-sizing: border-box;
+}
+.nav-tabs .nav-item .nav-link {
+    color: #0b3a67;
+    padding: .2rem 1.8rem;
+    box-sizing: border-box;
+    transform: none;
+}
+.nav-tabs .nav-item .nav-link.active {
+    position: relative;
+    background: #ffffff;
+}
+.nav-tabs .nav-link { border: 0; padding: 1rem 1rem; }
+
+/*
+
+MODAL
+
+*/
+.modal-content {
+    box-shadow: 0 6px 24px rgba(0,0,0,.4);
+    border: 1px solid #a9c6e0;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 2px;
+}
+.modal-header {
+    height: 34px;
+    background: linear-gradient(#e4f0fb,#cfe3f5) !important;
+    color: #0b3a67;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 0 6px;
+}
+.modal-header .btn {
+    margin-top: 5px;
+    padding-bottom: 10px;
+    height: 22px;
+    width: 22px;
+}
+.modal-header .btn span {
+    position: absolute;
+    top: 6px;
+    right: 14px;
+}
+.modal-title { padding-top: 4px; padding-bottom: 1px; }
+.modal-footer { padding: 6px; }
+
+/*
+
+TABLES
+
+*/
+.table { background: #ffffff; border-color: #cde0f0; }
+.table-bordered { border: 1px solid #cde0f0; }
+.table-bordered td, .table-bordered th { border: 1px solid #cde0f0; }
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #cde0f0;
+}

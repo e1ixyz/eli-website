@@ -28,7 +28,70 @@
         <link rel="stylesheet" type="text/css" href="assets/css/win95.css" />
         <link id="stylesheet" rel="stylesheet" type="text/css" href="assets/css/win95.css">
         
+        <style>
+            /* --- Boot overlay: first-visit DOS POST + per-version quick-boot splash --- */
+            #bootup {
+                display: none;
+                position: fixed; inset: 0; z-index: 9999;
+                background: #000; color: #fff;
+                font-family: FSEX300, "Courier New", monospace;
+                overflow: hidden;
+            }
+            html.booting #bootup { display: block; }
+            html.booting #main-content { visibility: hidden; }
+
+            /* DOS mode (explicit color: #id beats Bootstrap's dark `pre` rule) */
+            #boot-log { margin: 0; padding: 24px 28px; white-space: pre-wrap; font-size: 20px; line-height: 1.25; color: #fff; }
+            #boot-prompt { display: none; align-items: center; padding: 0 28px; font-size: 20px; color: #fff; }
+            #boot-prompt .c { white-space: pre; }
+            #boot-input {
+                background: transparent; border: 0; outline: 0; padding: 0; margin-left: 6px;
+                color: #fff; font: inherit; caret-color: #fff; width: 12ch;
+            }
+            html.boot-win95 #boot-log, html.boot-vista #boot-log,
+            html.boot-win95 #boot-prompt, html.boot-vista #boot-prompt { display: none; }
+
+            /* Quick-boot splash */
+            #boot-splash { display: none; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
+            html.boot-win95 #boot-splash, html.boot-vista #boot-splash { display: flex; }
+            #boot-logo { font-family: FSEX300, monospace; letter-spacing: 1px; }
+            html.boot-win95 #boot-logo::after { content: "Microsoft Windows 95"; color: #fff; font-size: 34px; }
+            html.boot-vista #boot-logo::after { content: "Microsoft Windows Vista"; color: #dfe8ff; font-size: 26px; }
+            #boot-bar { width: 260px; height: 16px; margin-top: 18px; overflow: hidden; border: 1px solid #444; background: #0a0a0a; }
+            #boot-bar-fill { height: 100%; width: 0; }
+            html.boot-win95 #boot-bar-fill { background: repeating-linear-gradient(90deg,#1e46d6 0 11px, transparent 11px 14px); }
+            html.boot-vista #boot-bar-fill { background: linear-gradient(#a6ef7f,#4fae2e); box-shadow: 0 0 10px rgba(124,252,0,.8); }
+            html.boot-win95 #boot-bar-fill, html.boot-vista #boot-bar-fill { animation: bootfill 1.7s ease-out forwards; }
+            @keyframes bootfill { from { width: 0; } to { width: 100%; } }
+        </style>
+        <script>
+            // Anti-flash: pick the boot screen before paint from the cached choice.
+            (function () {
+                var v = localStorage.getItem("winver");
+                var root = document.documentElement;
+                var link = document.getElementById("stylesheet");
+                if (v === "vista") {
+                    if (link) link.href = "assets/css/vista.css";
+                    root.className += " booting boot-vista";
+                } else if (v === "dark95") {
+                    if (link) link.href = "assets/css/win95_dark.css";
+                    root.className += " booting boot-win95";
+                } else if (v === "light95") {
+                    root.className += " booting boot-win95";
+                } else {
+                    root.className += " booting boot-dos"; // first visit
+                }
+            })();
+        </script>
     </head>
+    <div id="bootup">
+        <pre id="boot-log"></pre>
+        <div id="boot-prompt"><span class="c">C:\&gt;</span><input id="boot-input" type="text" autocomplete="off" spellcheck="false" /></div>
+        <div id="boot-splash">
+            <div id="boot-logo"></div>
+            <div id="boot-bar"><div id="boot-bar-fill"></div></div>
+        </div>
+    </div>
     <div id="main-content">
         <div id="preloader"></div>
           
@@ -51,7 +114,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <!-- <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="https://goo-news.gq/">goo-news.gq</a> -->
                             <a class="dropdown-item" href="#">Home</a>
-                            <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="https://music.e1i.xyz/">Music</a>
+                            <a class="dropdown-item" href="#app">Music</a>
                             <a class="dropdown-item" href="files.html">Files</a>
                         </div>
                     </li>
@@ -61,9 +124,9 @@
         <br />
 
         <div class="container" id="page-content">
-            <div class="row mb-5">
-                <div class="col-md-3 text-center"></div>
-                <div class="col-md-6 my-auto">
+            <div class="row justify-content-center">
+                <!-- Left: info cards -->
+                <div class="col-lg-6 mb-4 order-1">
                     <div class="card">
                         <div class="card-header icon">
                             <h4 class="my-0 font-weight-normal"><img src="assets/icons/note-0.png" /> About Me</h4>
@@ -76,12 +139,9 @@
                                 <a target="_blank" rel="noopener noreferrer" href="https://www.newschool.edu/">The New School</a> in 2025.
                                  In my free time, I like to code, DJ, and produce music.<br>
                             </ul>
-                                <a target="_blank" rel="noopener noreferrer" href="http://music.e1i.xyz/"><img src="assets/img/cdcd.gif" style="height: 200px; border-radius: 25px;" /></a><br />
-<!--                                      <img src="assets/img/mm1.gif" style="height: 100px;"> -->
-<!--                                      <img src="assets/img/mm2.gif" style="height: 256px;"> -->
-<!--                                      <img src="assets/img/mm3.gif" style="height: 256px;"> -->
+                                <a href="#app"><img src="assets/img/cdcd.gif" style="height: 200px; border-radius: 25px;" /></a><br />
                                 <br />
-                                ⚠️ <a target="_blank" rel="noopener noreferrer" href="http://music.e1i.xyz/">Click the CD to hear my music!</a> ⚠️
+                                Use the media player to hear my music -&gt;
                             </center>
                             <br />
                             <div class="btn-group btn-block" role="group" aria-label="Basic example">
@@ -92,15 +152,17 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
-        </div>
 
+                <!-- Right: music player (Webamp) — mobile: last (order-3); desktop: beside About (order-lg-2) -->
+                <div class="col-lg-auto mt-4 mt-lg-0 order-3 order-lg-2">
+                    <!-- ponytail: fixed width = cluster width; Webamp centers its windows in the container, so a snug box leaves no dead space. position:relative anchors them here. min-height matches the About Me card (500px). -->
+                    <div id="app" style="position: relative; width: 275px; min-height: 500px; margin: 0 auto;"></div>
+                </div>
 
-        <div class="container" id="page-content">
-            <div class="row mb-5">
-                <div class="col-md-3 text-center"></div>
-                <div class="col-md-6 my-auto">
+                <!-- Contacts — mobile: before Webamp (order-2); desktop: wraps below (order-lg-3) -->
+                <div class="col-lg-6 mb-4 order-2 order-lg-3">
                     <div class="card">
                         <div class="card-header icon">
                             <h4 class="my-0 font-weight-normal"><img src="assets/icons/note-0.png" /> Contacts</h4>
@@ -121,9 +183,9 @@
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
 
-        <center>
+        <center id="retro-badges">
             <img src="assets/img/wabwalk.gif" style="width: 100px; height: 100px;"><img src="assets/img/webtrips.gif" style="width: 100px; height: 100px;">
             <br/>
             <img src="assets/img/ie_logo.gif"><img src="assets/img/noframes.gif">
@@ -144,11 +206,72 @@
 <!--                     <a href="" class="btn start-button"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16" /><font color="black">&nbsp;Assignments</font>&nbsp;</a> -->
                     <!-- <button type="button" class="btn start-button" onClick="playMyAudio()"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16" /> <font color="black">Assignments</font>&nbsp;</button> -->
                     <button type="button" class="btn start-button" onclick="toggleStylesheet()"><img src="assets/icons/mixer_keyboard_musical-1.png" class="icon-16">&nbsp;</button>
-                    
+                    <button type="button" class="btn start-button" onclick="toggleVista()"><img src="assets/icons/computer_2_cool-1.png" class="icon-16"> <font color="black">Version</font>&nbsp;</button>
+                    <button type="button" class="btn start-button" onclick="toggleSound()" id="sound-btn"><img src="assets/icons/loudspeaker_rays_green-0.png" class="icon-16"> <font color="black">Sound</font>&nbsp;</button>
+
                 </div>
                 <div class="col-4 time"><img src="assets/icons/world-5.png" class="icon-16" /> e1i.xyz</div>
             </div>
         </footer>
+
+        <!-- Webamp music player (folded in from eli-music) -->
+        <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
+        <script src="https://unpkg.com/butterchurn@2.6.7/lib/butterchurn.min.js"></script>
+        <script src="https://unpkg.com/butterchurn-presets@2.4.7/lib/butterchurnPresets.min.js"></script>
+        <script>
+            const Webamp = window.Webamp;
+            const AUDIO_BASE = "assets/audio/";
+            const webamp = new Webamp({
+                initialTracks: [
+                    { metaData: { title: "[schema.mp3]" },            url: AUDIO_BASE + "schema.mp3" },
+                    { metaData: { title: "[grain.wav]" },             url: AUDIO_BASE + "grainy.wav" },
+                    { metaData: { title: "[dragme.mp3]" },            url: AUDIO_BASE + "dragme.mp3" },
+                    { metaData: { title: "[low.mp3]" },               url: AUDIO_BASE + "low.mp3" },
+                    { metaData: { title: "[dreams.wav]" },            url: AUDIO_BASE + "dream.wav" },
+                    { metaData: { title: "[future.wav]" },            url: AUDIO_BASE + "future.wav" },
+                    { metaData: { title: "[maria.mp3]" },             url: AUDIO_BASE + "maria.mp3" },
+                    { metaData: { title: "[the prince (live).wav]" }, url: AUDIO_BASE + "the prince.wav" },
+                    { metaData: { title: "[orbit (live).wav]" },      url: AUDIO_BASE + "orbit.wav" },
+                    { metaData: { title: "[stardust (live).wav]" },   url: AUDIO_BASE + "stardust.wav" },
+                    { metaData: { title: "[star (live).wav]" },       url: AUDIO_BASE + "star.wav" },
+                    { metaData: { title: "[dotnet.wav]" },            url: AUDIO_BASE + "dotnet.wav" },
+                    { metaData: { title: "[gnu.wav]" },               url: AUDIO_BASE + "gnu.wav" },
+                    { metaData: { title: "[gui.wav]" },               url: AUDIO_BASE + "gui.wav" },
+                    { metaData: { title: "[loading.wav]" },           url: AUDIO_BASE + "loading-interlude.wav" },
+                    { metaData: { title: "[404.wav]" },               url: AUDIO_BASE + "404.wav" },
+                    { metaData: { title: "[cache.wav]" },             url: AUDIO_BASE + "cache.wav" },
+                    { metaData: { title: "[error.wav]" },             url: AUDIO_BASE + "error.wav" },
+                    { metaData: { title: "[blue_void_rmx.wav]" },     url: AUDIO_BASE + "blue_void_rmx.wav" },
+                    { metaData: { title: "[nvm.mp3]" },               url: AUDIO_BASE + "nvm-ext.mp3" },
+                    { metaData: { title: "[vista.mp3]" },             url: AUDIO_BASE + "vista.mp3" },
+                    { metaData: { title: "[unnamed (live).wav]" },    url: AUDIO_BASE + "error.mp3" },
+                    { metaData: { title: "[nearly.mp3]" },            url: AUDIO_BASE + "nearly.mp3" },
+                    { metaData: { title: "[i_miss_italy.wav]" },      url: AUDIO_BASE + "i_miss_italy.wav" },
+                    { metaData: { title: "[cook.wav]" },              url: AUDIO_BASE + "cook.wav" },
+                    { metaData: { title: "[cd.wav]" },                url: AUDIO_BASE + "cd.wav" },
+                ],
+                __butterchurnOptions: {
+                    importButterchurn: () => Promise.resolve(window.butterchurn),
+                    getPresets: () => {
+                        const presets = window.butterchurnPresets.getPresets();
+                        return Object.keys(presets).map((name) => ({
+                            name,
+                            butterchurnPresetObject: presets[name],
+                        }));
+                    },
+                    butterchurnOpen: false,
+                },
+                __initialWindowLayout: {
+                    main: { position: { x: 0, y: 0 } },
+                    equalizer: { position: { x: 0, y: 116 } },
+                    playlist: { position: { x: 0, y: 232 }, size: [0, 5] },
+                    milkdrop: { position: { x: 275, y: 0 }, size: [7, 12] },
+                },
+                initialSkin: { url: "assets/skins/Winamp5_Classified_v5.5.wsz" },
+            });
+            window.webamp = webamp; // let setTheme() swap the skin per theme
+            webamp.renderWhenReady(document.getElementById("app"));
+        </script>
 
         <script src="assets/js/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
