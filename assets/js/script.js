@@ -101,13 +101,11 @@ function setTheme(name) {
 
 function toggleVista() {
     setTheme(THEMES[themeIndex] === "vista" ? "light95" : "vista");
-    playDing(); // uses the destination theme's sound (setTheme already updated themeIndex)
 }
 
 // existing dark-mode button shares the same state so the two controls stay in sync
 function toggleStylesheet() {
     setTheme(THEMES[themeIndex] === "dark95" ? "light95" : "dark95");
-    playDing();
 }
 
 function cycleBackgroundImages() {
@@ -120,81 +118,6 @@ function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
 }
 
-// UI sounds — period-authentic Win95 / Vista sounds (assets/sounds/), theme-aware.
-// NOTE: browsers block audio until a user gesture, so hover/landing sounds are silent
-// until the first click/keypress; the first-visit DOS "Enter" unlocks the startup chime.
-const SFX_KEY = "sfx"; // localStorage: "off" = muted; anything else = on (default on)
-let soundOn = localStorage.getItem(SFX_KEY) !== "off";
-
-const SFX = {
-    win95: {
-        startup: "assets/sounds/win95-startup.mp3",
-        hover:   "assets/sounds/vista-hover.mp3", // hover sounds swapped per user preference
-        click:   "assets/sounds/win95-click.mp3",
-        ding:    "assets/sounds/win95-ding.mp3",
-    },
-    vista: {
-        startup: "assets/sounds/vista-startup.mp3",
-        hover:   "assets/sounds/win95-hover.mp3", // hover sounds swapped per user preference
-        click:   "assets/sounds/vista-click.mp3",
-        ding:    "assets/sounds/vista-ding.mp3",
-    },
-    type: "assets/sounds/type-tick.mp3", // DOS boot keystroke tick (pre-theme, Win95-era)
-};
-
-const _sfxCache = {};
-function _sfx(src) {
-    if (!_sfxCache[src]) { const a = new Audio(src); a.preload = "auto"; _sfxCache[src] = a; }
-    return _sfxCache[src];
-}
-function currentSounds() { return SFX[THEMES[themeIndex] === "vista" ? "vista" : "win95"]; }
-
-function playSfx(src, vol) {
-    if (!soundOn || !src) return;
-    const a = _sfx(src).cloneNode(); // clone so rapid/overlapping triggers each start from 0
-    a.volume = vol;
-    a.play().catch(function () {}); // ignore autoplay-policy rejections (no user gesture yet)
-}
-
-function playHover()   { playSfx(currentSounds().hover, 0.25); }
-function playClick()   { playSfx(currentSounds().click, 0.25); }
-function playStartup() { playSfx(currentSounds().startup, 0.6); }
-function playDing()    { playSfx(currentSounds().ding, 0.4); }
-function playType()    { playSfx(SFX.type, 0.22); }
-
-function updateSoundBtn() {
-    const btn = document.getElementById("sound-btn");
-    if (!btn) return;
-    const icon = btn.querySelector("img");
-    if (icon) icon.src = "assets/icons/" + (soundOn ? "loudspeaker_rays_green-0.png" : "loudspeaker_muted-0.png");
-    const label = btn.querySelector("font");
-    if (label) label.textContent = soundOn ? "Sound" : "Muted";
-}
-
-function toggleSound() {
-    soundOn = !soundOn;
-    localStorage.setItem(SFX_KEY, soundOn ? "on" : "off");
-    updateSoundBtn();
-    if (soundOn) playClick(); // audible confirmation when turning back on
-}
-
-// hover + click SFX via delegation (skip the Webamp player #app; fire hover once per control)
-const SFX_SELECTOR = ".start-button, .nav-link, .dropdown-item, .btn-secondary, .navbar-brand";
-let _lastHoverEl = null;
-document.addEventListener("mouseover", function (e) {
-    const el = e.target.closest(SFX_SELECTOR);
-    if (!el || el === _lastHoverEl || el.closest("#app")) return;
-    _lastHoverEl = el;
-    playHover();
-});
-document.addEventListener("mouseout", function (e) {
-    if (_lastHoverEl && !_lastHoverEl.contains(e.relatedTarget)) _lastHoverEl = null;
-});
-document.addEventListener("click", function (e) {
-    const el = e.target.closest(SFX_SELECTOR);
-    if (el && !el.closest("#app")) playClick();
-});
-
 // Boot sequence — first visit runs a DOS POST + version prompt; return visits run a
 // quick per-version splash. The <html> mode class is set by the anti-flash script in index.html.
 
@@ -203,7 +126,6 @@ function revealSite() {
     root.classList.remove("booting", "boot-dos", "boot-win95", "boot-vista");
     const boot = document.getElementById("bootup");
     if (!boot) return;
-    playStartup(); // landing chime (best-effort; unlocked by the DOS keypress on first visit)
     boot.style.transition = "opacity .4s";
     boot.style.opacity = "0";
     setTimeout(function () { boot.style.display = "none"; }, 400);
@@ -241,7 +163,6 @@ function runDosBoot() {
     let i = 0;
     (function next() {
         if (i < lines.length) {
-            if (lines[i]) playType(); // keystroke tick on non-blank lines
             log.textContent += lines[i++] + "\n";
             setTimeout(next, 170);
         } else {
@@ -261,7 +182,6 @@ function runDosBoot() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    updateSoundBtn(); // reflect persisted mute state on the taskbar button
     if (document.documentElement.classList.contains("boot-dos")) {
         runDosBoot();
     } else {
