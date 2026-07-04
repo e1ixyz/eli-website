@@ -286,8 +286,8 @@ FOOTER — signature Vista taskbar (translucent blue glass)
     font-size: 14px;
     text-shadow: 0 1px rgba(0,0,0,.5);
 }
-/* Vista hides #retro-badges, so pad the bottom to clear the absolute taskbar */
-#page-content { flex: 1 0 auto; padding-bottom: 72px; }
+/* Vista hides #retro-badges, so pad the bottom just enough to clear the absolute taskbar */
+#page-content { flex: 1 0 auto; padding-bottom: 44px; }
 
 /*
 

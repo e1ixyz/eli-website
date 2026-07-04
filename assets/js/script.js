@@ -82,17 +82,17 @@ function setTheme(name) {
     localStorage.setItem(WINVER_KEY, name); // every path (boot, Version btn, dark toggle) persists
     const link = document.getElementById("stylesheet");
     if (name === "vista") {
-        link.setAttribute("href", "assets/css/vista.css");
+        link.setAttribute("href", "assets/css/vista.css?v=3");
         // image over gradient fallback -> graceful if the jpg is missing
         document.body.style.background =
             "url('assets/img/vista_aurora.jpg') center center / cover no-repeat fixed," +
             " linear-gradient(135deg,#04102e,#0a2a63 45%,#0e5a7a)";
     } else if (name === "dark95") {
-        link.setAttribute("href", "assets/css/win95_dark.css");
+        link.setAttribute("href", "assets/css/win95_dark.css?v=3");
         document.body.style.background = "";
         setBackgroundImage("bg_dark.gif");
     } else { // light95
-        link.setAttribute("href", "assets/css/win95.css");
+        link.setAttribute("href", "assets/css/win95.css?v=3");
         document.body.style.background = "";
         currentBgIndex = getRandomIndex(bgImages);
         setBackgroundImage(bgImages[currentBgIndex]);
@@ -101,11 +101,13 @@ function setTheme(name) {
 
 function toggleVista() {
     setTheme(THEMES[themeIndex] === "vista" ? "light95" : "vista");
+    pixelReveal(document.getElementById("main-content")); // pixelated -> sharp on theme switch
 }
 
 // existing dark-mode button shares the same state so the two controls stay in sync
 function toggleStylesheet() {
     setTheme(THEMES[themeIndex] === "dark95" ? "light95" : "dark95");
+    pixelReveal(document.getElementById("main-content"));
 }
 
 function cycleBackgroundImages() {
@@ -118,12 +120,30 @@ function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
 }
 
+// Pixelated -> sharp reveal: shrink the SVG #pixelate block size to 0, then drop the filter.
+function pixelReveal(el) {
+    const comp = document.getElementById("px-comp");
+    const morph = document.getElementById("px-morph");
+    if (!el || !comp || !morph) return; // no filter on this page -> skip
+    el.style.filter = "url(#pixelate)";
+    var size = 20, delay = 150; // 20 steps x 150ms ~= 3s total depixelation
+    (function step() {
+        comp.setAttribute("width", size);
+        comp.setAttribute("height", size);
+        morph.setAttribute("radius", size / 2);
+        size -= 1;
+        if (size >= 1) setTimeout(step, delay);
+        else el.style.filter = ""; // land crisp
+    })();
+}
+
 // Boot sequence — first visit runs a DOS POST + version prompt; return visits run a
 // quick per-version splash. The <html> mode class is set by the anti-flash script in index.html.
 
 function revealSite() {
     const root = document.documentElement;
     root.classList.remove("booting", "boot-dos", "boot-win95", "boot-vista");
+    pixelReveal(document.getElementById("main-content")); // pixelated -> sharp on join
     const boot = document.getElementById("bootup");
     if (!boot) return;
     boot.style.transition = "opacity .4s";
@@ -140,8 +160,7 @@ function runQuickBoot(name) {
 
 function runDosBoot() {
     const log = document.getElementById("boot-log");
-    const prompt = document.getElementById("boot-prompt");
-    const input = document.getElementById("boot-input");
+    const choices = document.getElementById("boot-choices");
     const lines = [
         "e1i.xyz BIOS v4.00.950",
         "",
@@ -157,7 +176,7 @@ function runDosBoot() {
         "================================",
         " UPDATE AVAILABLE: Windows Vista",
         "================================",
-        " Install the upgrade now?  (Y/N)",
+        " Choose your version:",
         "",
     ];
     let i = 0;
@@ -166,19 +185,16 @@ function runDosBoot() {
             log.textContent += lines[i++] + "\n";
             setTimeout(next, 170);
         } else {
-            prompt.style.display = "flex";
-            input.focus();
+            choices.classList.add("show"); // stylized 95 / Vista buttons at the bottom (~3s in)
         }
     })();
-    input.addEventListener("keydown", function (e) {
-        if (e.key !== "Enter") return;
-        const v = input.value.trim().toLowerCase();
-        const choice = ["y", "yes", "u", "update", "upgrade", "1"].includes(v) ? "vista" : "light95";
-        log.textContent += "C:\\> " + input.value + "\n";
-        prompt.style.display = "none";
+    function pick(choice) {
+        choices.classList.remove("show");
         setTheme(choice);     // caches the choice
         runQuickBoot(choice); // "applying update" payoff, then reveals
-    });
+    }
+    document.getElementById("boot-95").addEventListener("click", function () { pick("light95"); });
+    document.getElementById("boot-vista").addEventListener("click", function () { pick("vista"); });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
