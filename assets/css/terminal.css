@@ -7,170 +7,67 @@
     font-style: normal;
     font-weight: 400;
     }
-    html {
-    overflow: hidden;
-    font-family: FSEX300;
-    font-style: normal;
-    font-stretch: normal;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    vertical-align: baseline;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    background: #000000;
-    font-size: 24px;
+    html, body {
+      width: 100%; height: 100%; margin: 0; padding: 0;
+      background: #000;
+      color: #33ff41;
+      font-family: FSEX300, "Courier New", monospace;
+      font-size: 18px;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      text-shadow: 0 0 1px currentColor, 0 0 6px rgba(51, 255, 65, .45);
     }
-    body,
-    html {
-    width: 100%;
-    height: 100%;
-    color: limegreen;
-    }
-    .banner,
-    .content,
-    body {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: left;
-    align-items: left;
-    -webkit-justify-content: left;
-    justify-content: left;
-    }
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    }
-    ._s {
-    border-color: rgb(0, 0, 0) #000000 #000000 rgb(0, 0, 0);
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: -1px -1px 0 0 #000000, -1px 0 0 0 #080808,
-    0 -1px 0 0 #000000, 1px 1px 0 0 #000, -1px 1px 0 0 #000,
-    1px -1px 0 0 #000;
-    }
-    .error {
-    width: 300px;
-    background: #000000;
-    padding: 1px;
-    }
-    .banner {
-    line-height: 20px;
-    height: 20px;
-    padding-left: 8px;
-    color: #fff;
-    background: #04056e;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-    }
-    .close {
-    position: relative;
-    margin: 3px;
-    background: #c1c1c1;
-    height: 14px;
-    width: 16px;
-    cursor: pointer;
-    }
-    .close::before,
-    .close::after {
-    position: absolute;
-    top: 5px;
-    left: 1px;
-    content: "";
-    width: 12px;
-    height: 1px;
-    background: grey;
-    }
-    .close::before {
-    box-shadow: 0 1px 0 #fff;
-    transform: rotate(-45deg);
-    }
-    .close::after {
-    box-shadow: 1px 0 0 #fff;
-    transform: rotate(45deg);
-    }
-    .content {
-    font-size: 14px;
-    padding: 12px;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    }
-    .text {
-    text-align: left;
-    }
-    .text {
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-    padding: 0 14px;
-    width: 242px;
-    }
-    .astext {
-    background:none;
-    font-family: FSEX300;
-    border:none;
-    margin:0;
-    padding:0;
-    cursor: pointer;
-    font-size: 14px;
-    }
-    a:link {
-        color: limegreen;
-        text-decoration: none;
-      }
-      
-      /* visited link */
-      a:visited {
-        color: limegreen;
-        text-decoration: none;
-      }
-      
-      /* mouse over link */
-      a:hover {
-        color: limegreen;
-        text-decoration: none;
-      }
-      
-      /* selected link */
-      a:active {
-        color: limegreen;
-        text-decoration: none;
-      }
+    * { box-sizing: border-box; }
+    @media (max-width: 600px) { html, body { font-size: 15px; } }
 
-      .button {
-        color: limegreen;
-        font-family: FSEX300;
-      }
+    /* CRT scanlines + subtle flicker */
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none;
+      background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.28) 2px 4px);
+      animation: crt-flicker 4s infinite steps(64);
+    }
+    /* vignette */
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: 51; pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%);
+    }
+    @keyframes crt-flicker { 0%,48%,100% { opacity: 1; } 50% { opacity: .92; } 52% { opacity: .98; } }
 
-      .terminal {
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-        padding: 20px;
-      }
+    /* ---- shell ---- */
+    #term {
+      position: relative; z-index: 10;
+      display: flex; flex-direction: column;
+      width: 100%; height: 100vh; height: 100dvh; padding: 18px 20px;
+    }
+    #term-output {
+      flex: 1 1 auto; overflow-y: auto; overflow-x: hidden;
+      white-space: pre-wrap; word-break: break-word; line-height: 1.4;
+    }
+    #term-output::-webkit-scrollbar { width: 8px; }
+    #term-output::-webkit-scrollbar-thumb { background: rgba(51,255,65,.4); }
+    .term-line { min-height: 1.4em; }
+    .cmd-echo { color: #8bffa0; }
+    .muted { opacity: .8; }
+    .ok { color: #33ff41; }
+    .err { color: #ff5f56; text-shadow: 0 0 6px rgba(255,95,86,.5); }
 
-      .blink {
-        animation: blink-animation 1s steps(5, start) infinite;
-        -webkit-animation: blink-animation 1s steps(5, start) infinite;
-      }
-      @keyframes blink-animation {
-        to {
-          visibility: hidden;
-        }
-      }
-      @-webkit-keyframes blink-animation {
-        to {
-          visibility: hidden;
-        }
-      }
-      #app {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-      }
+    /* input line */
+    #term-input-line {
+      display: flex; align-items: center; gap: 8px; padding-top: 6px; visibility: hidden;
+    }
+    #term-input-line .prompt { color: #33ff41; white-space: pre; }
+    #term-input {
+      flex: 1 1 auto; min-width: 0;
+      background: transparent; border: 0; outline: 0;
+      color: #33ff41; font: inherit; text-shadow: inherit;
+      caret-color: #33ff41; caret-shape: block;
+    }
+    /* links + file entries: hover inverts like a terminal selection */
+    a, a:link, a:visited { color: #33ff41; text-decoration: none; }
+    a:hover, a:focus, a:active { background: #33ff41; color: #000; text-shadow: none; outline: 0; }
+    .file-entry { padding: 1px 0; }
+    .file-entry .assignment-link::before { content: "[DL] "; opacity: .7; }
+
+    /* blinking cursor / links */
+    .blink { animation: blink 1s steps(2, start) infinite; }
+    @keyframes blink { to { opacity: 0; } }

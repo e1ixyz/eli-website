@@ -8,58 +8,29 @@
          />
       <title>Files</title>
       <link rel="shortcut icon" href="assets/icons/computer-3.png" type="image/png" />
-   <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
+      <link rel="stylesheet" type="text/css" href="assets/css/terminal.css?v=3" />
    </head>
    <body>
-      <div class="terminal">
-         <br>
-         <font color="limegreen">>>> Files</font>
-         <br><br>
-         <div class="assignments">
-             <ul>
-                 <!-- Assignment links will be added here dynamically -->
-             </ul>
+      <div id="term">
+         <div id="term-output"></div>
+         <div id="term-input-line">
+            <span class="prompt"></span>
+            <input id="term-input" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="terminal input" />
          </div>
-         <br>
-         <a class="blink" href="index"><u><font color="limegreen">[⏎ Return to Home]</font></u></a>
-     </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!--       <script src="assets/js/files.js"></script> -->
-       <script>
-         // Sheets Files
-            function updateAssignmentsFromSheet() {
-               const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnbOxOtpBxz4xGZaSZFvHKOggqbbIHeQ-R75tb1l-nfVTEJYttADP9sVFCWXPMQMfeHhFZLKJ1w8LC/pub?output=csv';
-               
-               $.get(googleSheetsURL, function (data) {
-                  const rows = data.split('\n');
-                  const assignmentsContainer = $('.assignments ul');
-
-                  let filesAvailable = false;
-
-                  for (let i = 1; i < rows.length; i++) {
-                        const columns = rows[i].split(',');
-                        if (columns.length >= 3) {
-                           const assignmentLink = columns[1].trim(); // Get link from column B
-                           const assignmentDescription = columns[2].trim(); // Get assignment name from column C
-
-                           const assignmentElement = $('<a>').attr('href', assignmentLink).addClass('assignment-link');
-                           assignmentElement.text(assignmentDescription);
-
-                           const listItem = $('<ul>').append(assignmentElement);
-                           assignmentsContainer.append(listItem);
-                           
-                           filesAvailable = true;
-                        }
-                  }
-
-                  if (!filesAvailable) {
-                     assignmentsContainer.append('<ul style="color: red;">No files available to download...</ul>');
-                  }
-               });
-            }
-
-            updateAssignmentsFromSheet();
-
-       </script>
+      </div>
+      <script>
+         window.TERM_CONFIG = {
+            mode: "files",
+            prompt: "guest@e1i.xyz:~/files$",
+            // published-to-web CSV — col B = link, col C = display name (unchanged contract)
+            sheetUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnbOxOtpBxz4xGZaSZFvHKOggqbbIHeQ-R75tb1l-nfVTEJYttADP9sVFCWXPMQMfeHhFZLKJ1w8LC/pub?output=csv",
+            banner: [
+               "e1i.xyz file server — connection established.",
+               "loading file index...",
+               ""
+            ]
+         };
+      </script>
+      <script src="assets/js/terminal.js?v=3"></script>
    </body>
 </html>

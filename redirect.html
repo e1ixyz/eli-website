@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-
-<html>
-<head>
-<title>&gt;&gt;&gt; events</title>
-<meta content="0; url=https://soundcloud.com/e1ixyz" http-equiv="refresh"/>
-<link href="assets/css/terminal.css" rel="stylesheet"/>
-</head>
-<body>
-<div class="custom-cursor"></div>
-<div class="parentMenu">
-<div class="menubar">
-<p><a class="blink" href="https://soundcloud.com/e1ixyz">[redirecting...]</a></p>
-<div class="maintext">
-</div>
-</div>
-</div>
-</body>
+<html lang="en">
+   <head>
+      <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+      <title>&gt;&gt;&gt; events</title>
+      <!-- no-JS fallback -->
+      <meta http-equiv="refresh" content="4; url=https://soundcloud.com/e1ixyz" />
+      <link rel="stylesheet" type="text/css" href="assets/css/terminal.css?v=3" />
+      <link rel="shortcut icon" href="assets/icons/computer-3.png" type="image/png" />
+   </head>
+   <body>
+      <div id="term"><div id="term-output"></div></div>
+      <script>
+         window.TERM_CONFIG = {
+            mode: "redirect",
+            label: "soundcloud",
+            target: "https://soundcloud.com/e1ixyz",
+            banner: ["e1i.xyz router — online.", ""]
+         };
+      </script>
+      <script src="assets/js/terminal.js?v=3"></script>
+      <noscript><a href="https://soundcloud.com/e1ixyz">continue to soundcloud &rarr;</a></noscript>
+   </body>
 </html>

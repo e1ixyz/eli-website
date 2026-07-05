@@ -8,14 +8,33 @@
          />
       <title>404</title>
       <link rel="shortcut icon" href="assets/icons/computer-3.png" type="image/png" />
-   <link rel="stylesheet" type="text/css" href="assets/css/terminal.css" />
+      <link rel="stylesheet" type="text/css" href="assets/css/terminal.css?v=3" />
    </head>
    <body>
-      <div>
-         <div class="terminal"><br>
-            <font color="limegreen">>>> Oh no... Our Website... It's Broken. [404 Error]</font><br><br>
-            <a class="blink" href="index"><u><font color="limegreen">[⏎ Return to Home]</font></u></a><br><br>
+      <div id="term">
+         <div id="term-output"></div>
+         <div id="term-input-line">
+            <span class="prompt"></span>
+            <input id="term-input" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="terminal input" />
          </div>
       </div>
+      <script>
+         window.TERM_CONFIG = {
+            mode: "404",
+            prompt: "guest@e1i.xyz:~$",
+            banner: [
+               "e1i.xyz system — kernel v4.04",
+               "",
+               "$ locate " + location.pathname,
+               "ERROR 404: resource not found",
+               "segmentation fault (core dumped)",
+               "",
+               "the page you requested does not exist.",
+               "type 'home' to return, or 'help' for commands.",
+               ""
+            ]
+         };
+      </script>
+      <script src="assets/js/terminal.js?v=3"></script>
    </body>
 </html>
