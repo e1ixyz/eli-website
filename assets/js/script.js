@@ -120,11 +120,30 @@ function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
 }
 
-// Pixelated -> sharp reveal: shrink the SVG #pixelate block size to 0, then drop the filter.
+// Pixelated -> sharp reveal (~3s). WebKit (iOS/Safari) and touch devices mis-render the
+// SVG feTile pixelate filter, so they get an equivalent blur -> sharp resolve instead.
+function pixelSupported() {
+    var ua = navigator.userAgent;
+    var webkit = /iP(hone|ad|od)/i.test(ua) ||
+        (/Safari/i.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|Android/i.test(ua));
+    var touch = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
+    return !(webkit || touch);
+}
+
+function blurReveal(el) {
+    el.style.transition = "none";
+    el.style.filter = "blur(16px)";
+    void el.offsetWidth; // reflow so the transition animates from the blurred state
+    el.style.transition = "filter 3s cubic-bezier(.2,.7,.2,1)";
+    el.style.filter = "blur(0px)";
+    setTimeout(function () { el.style.transition = ""; el.style.filter = ""; }, 3200);
+}
+
 function pixelReveal(el) {
-    const comp = document.getElementById("px-comp");
-    const morph = document.getElementById("px-morph");
-    if (!el || !comp || !morph) return; // no filter on this page -> skip
+    if (!el) return;
+    var comp = document.getElementById("px-comp");
+    var morph = document.getElementById("px-morph");
+    if (!pixelSupported() || !comp || !morph) return blurReveal(el); // mobile/WebKit fallback
     el.style.filter = "url(#pixelate)";
     var size = 20, delay = 150; // 20 steps x 150ms ~= 3s total depixelation
     (function step() {
